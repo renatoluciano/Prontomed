@@ -1,8 +1,16 @@
 from django.contrib import admin
 from django.urls import path, include
+# Importa as views prontas do SimpleJWT
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # Inclui todas as rotas da nossa API sob o prefixo /api/
     path('api/', include('agendamentos.urls')),
+    
+    # Endpoints de Autenticação por Token
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
